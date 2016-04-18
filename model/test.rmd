@@ -1,0 +1,12 @@
+---
+title: "mining with plsr"
+author: "Guan"
+date: "Tuesday, July 29, 2014"
+output: html_document
+---
+
+
+## 总体误差
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, out.width=1280}
+summary(cars)
+```

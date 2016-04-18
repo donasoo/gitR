@@ -1,0 +1,17 @@
+---
+output: pdf_document
+---
+ ---
+ title: "test错误"
+ author: "yufree"
+ output:pdf_document:
+ ---
+
+
+ This is an R Markdown document. 
+
+
+ plot(cars,main='issue')
+ plot(cars,main='issue2')
+
+ ```

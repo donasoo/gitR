@@ -1,0 +1,218 @@
+---
+title: "Mining with RandomForest"
+author: "Guan, Love My Team and Leader"
+date: "Sunday, Augest 3, 2014"
+output: html_document
+---
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+require(randomForest);
+require(DMwR);
+require(reshape2);
+require(ggplot2);
+require(car);
+require(scales);
+```
+
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+mplot <- function(test, pre, name)
+{
+  result <- data.frame(date=test$date, '预测值'=as.numeric(pre), '真值'=test$cpi);
+  lresult <- melt(result, id='date');
+  
+  # 折线图
+  p <- ggplot(lresult, aes(x=date, y=value, colour=variable, shape = variable));
+  p <- p+geom_line(size = 1);
+  p <- p+scale_shape_manual(values=c(1, 19));
+  p <- p+geom_point(size = 2.5);
+  p <- p+labs(x='月份', y='指数', colour='', shape='');
+  p <- p + ggtitle(paste(name, '对比图'));
+  p <- p +theme(legend.position="top");
+  p <- p + scale_x_date(labels = date_format('%y%b')) + theme(axis.text.x =element_text(angle=30,hjust=1));
+  ggsave(file=paste('m-', name, '对比图(rf).png'), plot=p, width=5, height=4, dpi=100);
+  ggsave(file=paste('l-', name, '对比图(rf).png'), plot=p, width=9, height=7.5, dpi=100);
+  
+  cat(paste(name, '\n'));
+  # 点图
+  plot(pre ~ test$cpi, main=paste(name, '对比点图'), xlab='真值', ylab='预测值')
+  abline(0, 1, lty = 2)
+  dev.copy(png,filename=paste('m-', name, '对比点图(rf).png'), width=500, height=400, bg="white");
+  dev.off();
+  dev.copy(png,filename=paste('l-', name, '对比点图(rf).png'), width=1000, height=700, bg="white");
+  dev.off();
+  print(p)
+}
+```
+
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+# 做一次rf的函数
+dorf <- function(train, test, name)
+{
+  set.seed(3721)
+  model.rf <- randomForest(cpi ~ ., data =train, mtry=50, ntree=700);
+  
+  pre.rf <- predict(model.rf,  newdata=test);
+  
+  mplot(test, pre.rf, name);
+   
+  # 保存误差
+  error <- regr.eval(test$cpi, pre.rf, train.y = train$cpi);
+  cat('误差\n')
+  print(error)
+  
+  out <- list('error'=error, 'predict'=pre.rf)
+  return (out);
+  
+}
+
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+load('E:\\gitR\\model\\data.RData');
+# 折参数
+begin =1;
+end = nrow(allpi);
+step = 11;
+seq <- seq(begin, end, step);
+len <- length(seq);
+sl <- c(-23)
+
+set.seed(3127);
+
+# 结果list
+lp <- matrix(0, nrow=8, ncol=8);
+le <- matrix(0, nrow=len+3, ncol=6);
+pre <- seq(end);
+```
+
+
+
+## 分折交叉验证
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+# 分折进行提升算法建模预测
+for (i in 1:(length(seq)))
+{
+  t <- seq[i]:(seq[i]+step-1);
+  
+  pi.test <- allpi[t, c(-23)];
+  pi.train <- allpi[-t, sl];
+  
+  name = paste('第', as.character(i), '折交叉验证');
+  
+  out <- dorf(train=pi.train, test=pi.test, name);
+  
+  le[i, ] <- out$error;
+  
+  pre[(i*step-step+1):(i*step)] <- out$predict;
+  
+}
+```
+## 6折交叉验证 
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+  mplot(allpi, pre, '6折交叉验证');  
+```
+
+## 用训练集作为测试 
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE}
+# 6折交叉验证误差
+le[len+1, ] <- regr.eval(allpi$cpi, pre, train.y = allpi$cpi);
+# 用训练集作为测试 
+out <- dorf(train=allpi[, sl], test=allpi[, c( -23)], '估计值与真值');
+le[len+2, ] <- out$error;
+
+```
+
+#预测
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+outp <- dorf(train=allpi[, sl], test=pi14[, c( -23)], '外推预测');
+le[len+3, ] <- outp$error;
+mplot(pi14[, c( -23)], outp$predict, '外推预测');
+```
+## 总体误差
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+names <- seq(len+3);
+for(i in 1:len){
+    name <- paste('第', i, '折', seq='');
+    names[i]=name;
+  }
+names[(len+1):(len+3)] <- c('测试集总体', '训练集总体', '外推预测');
+rownames(le) <- names;
+colnames(le) <- names(out$error)
+print(le)
+write.csv(le, file = 'error-rf.csv');
+```
+
+## 拟合和预测结果
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+result <- data.frame(date=c(allpi$date, pi14$date), '真值'=c(allpi$cpi, pi14$cpi), '拟合值'=c(as.numeric(out$predict), as.numeric(outp$predict)), '分折预测值'=c(as.numeric(pre), as.numeric(outp$predict)));
+result$'拟合误差' <- abs(result$'拟合值'-result$'真值');
+result$'预测误差' <- abs(result$'拟合值'-result$'真值');
+result$'拟合相对误差' <- abs(result$'拟合值'-result$'真值')/result$'真值';
+result$'预测相对误差' <- abs(result$'拟合值'-result$'真值')/result$'真值';
+print(result)
+write.csv(result, file = 'result-rf.csv');
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+tr <- result[, c(1, 2)]
+tr$y <- format(tr$date, '%Y')
+tr$m <- format(tr$date, '%m')
+tr <- tr[, -1]
+colnames(tr) <- c('v', 'y', 'm')
+mtr <- melt(tr)
+atr <- acast(mtr, m ~ y)
+l <- ncol(atr)
+rr <- atr
+for(i in 2:l){
+  rr[, i] <- atr[, i]/atr[, i-1]*100;  
+}
+rr <- rr[, -1]
+write.csv(rr, file = 'rr-rf.csv');
+
+lrr <- melt(rr)
+lrr$date <- paste(as.character(lrr[, 2]), as.character(lrr[, 1]))
+write.csv(lrr, file = 'lrr-rf.csv');
+```
+
+## 真值
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+print(rr)
+```
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+tr <- result[, c(1, 3)]
+tr$y <- format(tr$date, '%Y')
+tr$m <- format(tr$date, '%m')
+tr <- tr[, -1]
+colnames(tr) <- c('v', 'y', 'm')
+mtr <- melt(tr)
+atr <- acast(mtr, m ~ y)
+l <- ncol(atr)
+rr <- atr
+for(i in 2:l){
+  rr[, i] <- atr[, i]/atr[, i-1]*100;  
+}
+rr <- rr[, -1]
+write.csv(rr, file = 'rr-rf.csv');
+
+lrr <- melt(rr)
+lrr$date <- paste(as.character(lrr[, 2]), as.character(lrr[, 1]))
+write.csv(lrr, file = 'lrr-rf.csv');
+```
+
+
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+# 原数据为同比的还原法
+# rr <- result[, c(1, 2, 3)]
+# rr[, c(2, 3)] <- rr[, c(2, 3)]*cpi[18, 2]/100
+#write.csv(rr, file = 'lrr-rf.csv');
+#write.csv(rr, file = 'rr-rf.csv');
+```
+
+
+## 还原同比结果
+```{r, echo=FALSE, warning=FALSE, error=FALSE, message=FALSE, comment=NULL}
+print(rr)
+```

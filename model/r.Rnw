@@ -1,0 +1,10 @@
+\documentclass{article}
+
+\begin{document}
+
+p <- ggplot(data=mpg,mapping=aes(x=cty,y=hwy))
+p + geom_point()
+
+
+
+\end{document}\

@@ -1,0 +1,5 @@
+minning('bagging')
+minning('boost')
+minning('svm')
+minning('rf')
+minning('plsr')

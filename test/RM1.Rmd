@@ -1,0 +1,11 @@
+---
+output: pdf_document
+---
+
+  i like yhis
+
+```{r echo=TRUE, warning=FALSE, message=FALSE, results='asis', prompt=FALSE, dpi=600}
+library(xtable)
+
+print.xtable(xtable(mtcars), comment = FALSE, include.rownames = FALSE)
+```

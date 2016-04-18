@@ -1,0 +1,15 @@
+---
+title: "test2"
+
+---
+
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE, results='asis', prompt=FALSE, dpi=600}
+library(xtable)
+
+xmt <- xtable(mtcars[1:10, 1:5])
+align(xmt) <- "l|r|r|r|r|r"
+print.xtable(xmt, type="latex")
+
+```
