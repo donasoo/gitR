@@ -1,31 +1,23 @@
 #af
 
-#读取上将列表及网址
-#并截取编号
+#在空军官网简历页获取所有简历的列表
 library(rvest)
 Sys.setlocale('LC_ALL','C') 
 
-wikiaf4s.site <- 'https://en.wikipedia.org/wiki/List_of_United_States_Air_Force_four-star_generals'
-wikiaf4s <- read_html(sikiaf4s.site)
+site1 <- 'http://www.af.mil/AboutUs/Biographies/tabid/132/Page/'
+site2 <- '/Default.aspx'
+i <- 1
 
-af4s <- wikiaf4s %>% html_nodes("tr td span a")%>% html_text()
-af4s.names <- af4s[134:length(af4s)]
-search.names <- chartr(old=' ', new='+', af4s[134:length(af4s)])
-url <- ''
-serchaf.site0 <- 'http://search.af.mil/search?utf8=%E2%9C%93&affiliate=aflink&query=000000&commit=Search'
-
-for(i in 1:length(search.names)){
-  serchaf.sites <- gsub(pattern='000000',  replacement=search.names[i], x=serchaf.site0)
-  serch <- read_html(serchaf.sites)
-  results <- serch %>% html_nodes("#results .url")%>% html_text()
-  url[i] <- results[1]
+for(i in 1:5){
+  site <- paste(site1, i, site2, sep='')
 }
+biosearch <- read_html(site)
+con <- biosearch %>% html_nodes(".dal_list td.cell a")
+con
+url <- html_attr(con, 'href')
+name <- html_text(con)
 
-af4s.data <- data.frame(name=af4s.names, url=url, stringsAsFactors = FALSE)
-af4s.data$id <- substr(x=af4s.data$url, start =  regexpr(pattern = '\\d{6}', text=results[1])[[1]], stop = regexpr(pattern = '\\d{6}', text=results[1])[[1]]+5)
+con2 <- biosearch %>% html_nodes(".dal_list td.cell span.red")
+remark <- html_text(con2)
 
-#write.csv(af4s.data, 'af4sdata.csv')
-#af4s.data <- read.csv('af4sdata.csv', stringsAsFactors = FALSE)
-#save(af4s.data, file='af4s.RData')
-
-
+strsplit('MAJOR GENERAL ELMER EDWARD ADLER','MAJOR GENERAL')
