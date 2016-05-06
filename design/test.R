@@ -18,8 +18,8 @@ dealLor <- function(lorname){
   notes.df$tableNum <- gsub(pattern = "[^A-Za-z0-9\\-]", replacement="", x=notes.df$tableNum)
   notes.df$tableId <- gsub(pattern = "\\D", replacement="", x=notes.df$tableId)
   
- 
-  for(i in 1:length(notes.df)){
+  
+  for(i in 1:nrow(notes.df)){
     dealItem(notes.df[i,], lorname)
   }
   #lapply(notes.df, dealItem, lorname=lorname)
