@@ -5,7 +5,7 @@ sinaholders <- function(code){
 sinasite <- "http://vip.stock.finance.sina.com.cn/corp/go.php/vCI_CirculateStockHolder/stockid/000000/displaytype/40.phtml"
 codesite <- gsub("000000", code, sinasite)
 
-tryCatch(sinaweb <- html(codesite), error = function(e) print(code)) 
+tryCatch(sinaweb <- read_html(codesite, encoding='gbk'), error = function(e) return(code)) 
 t <- sinaweb %>%  html_nodes("#CirculateShareholderTable") %>% .[[1]] %>% html_table(fill = T)
 
 
