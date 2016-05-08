@@ -1,12 +1,20 @@
 
-s
-afhtml <- read_html("http://www.af.mil/AboutUs/Biographies/Display/tabid/225/Article/108479/lieutenant-general-john-w-jay-raymond.aspx")
-af1 <- afhtml %>% html_node(".da_black") %>%html_text()
-at <- strsplit(af1, "EDUCATION|ASSIGNMENTS|SUMMARY OF JOINT ASSIGNMENTS|FLIGHT INFORMATION|AMAJOR AWARDS AND DECORATIONS|EFFECTIVE DATES OF PROMOTION")
+afneed <- read.csv('afsneed.csv', stringsAsFactors  = F)
+af <- afneed[1,]
 
-af2 <- strsplit(af1, "\r\n\r\n")
+for(i in 1:365){
+  print(i)
+  bio <- getbio(afneed[i,])
+  if(is.na(bio)) next
 
-af3 <- sapply(af2, function(x) strsplit(x, "\r\n"), simplify=T)
+  if(!all(colnames(af) == colnames(bio))){
+    cname <- setdiff(colnames(bio), colnames(af))
+    af[,cname] <- NA
+    cname <- setdiff(colnames(af), colnames(bio))
+    bio[,cname] <- NA
+  }
+  af <- rbind(af, bio)
+}
 
-write.table(af3, 'af3.txt')
+write.csv(af, 'af.csv')
 
