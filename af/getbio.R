@@ -1,37 +1,13 @@
-#read bio and prase sections use fetchbio function result
+#read every bio  and save 
 library(rvest)
-library(stringr)
-getbio <- function(item){
-  
-  afhtml <- read_html(item$url)
-  content <- as.character( afhtml %>% html_nodes(".da_black") )
-  section <- afhtml %>% html_nodes(".da_black strong") %>% html_text()
-  if(length(section) == 0){
-    section <- afhtml %>% html_nodes(".da_black b") %>% html_text()
-  }
-  
-  if(length(section) == 0){
-    return(NA)
-  }else{
-    section <- str_trim(section)
-    section <- section[nchar(section)>2]
-    section.pattern <- 'abstract'
-    for(i in 1:length(section)){
-      section.pattern <- paste(section.pattern, section[i], sep="|")
-    }
-    
-    paragraph <- str_split(content, section.pattern)[[1]]
-    names(paragraph) <- c('abstra', str_to_lower(str_sub(section, end=6)))
-    paragraph <- data.frame(as.list(paragraph), stringsAsFactors = F)
-    
-    item <- cbind(item, paragraph)
-    
-    return(item)
-  }
-  
-  
+library(dplyr)
+load('afs.RData')
+
+af.need <- filter(af.list, year>1990 & !is.na(rank))
+bio.notes <- list()
+for(i in 1:nrow(af.need)){
+  print(i)
+  bio.notes <- append(bio.notes, read_html(as.character( af.need[i, 'url'])) %>% html_nodes("div.da_black") )
 }
 
-
-
-
+save(af.list, search.nodes, bio.notes, file = 'bio.RData')

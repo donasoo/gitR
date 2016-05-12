@@ -1,4 +1,4 @@
-createImport <- function(rownum, colnum, start){
+createImport <- function(rownum, colnum=1, start=4){
 
   rows <- rep(1:rownum, each=colnum)
   cols <- rep(1:colnum, times= rownum)

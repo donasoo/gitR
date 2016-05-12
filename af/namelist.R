@@ -1,28 +1,18 @@
-#user fetchbio function get every item in every page
+#
+library(stringr)
+library(dplyr)
 
+load('searchnodes.RData')
 
-site1 <- 'http://www.af.mil/AboutUs/Biographies/tabid/132/Page/'
-site2 <- '/Default.aspx'
-site <- paste(site1, '1', site2, sep='')
-afs <- fetchbio(site)
+f.url <- function(x) x %>% html_nodes("a.title") %>% html_attr('href') %>% str_trim()
+f.caption <- function(x) x %>% html_nodes("tr.dal_row a.title") %>% html_text()
+f.year <- function(x) x  %>% html_nodes("tr.dal_row span.red") %>% html_text() %>%  str_extract('\\d{4}')
+f.update <- function(x) x %>% html_nodes("tr.dal_row td.updated") %>% html_text() %>% str_trim() 
+af.list <- sapply(search.nodes, FUN = f.url) %>% unlist() %>% data.frame(url=., stringsAsFactors=F) %>% tbl_df()
+af.list <- mutate(af.list, name=sapply(search.nodes, FUN = f.caption) %>% unlist() %>% str_replace(rank_pattern, '') %>% str_trim())
+af.list <- mutate(af.list, rank=sapply(search.nodes, FUN = f.caption) %>% unlist() %>% str_extract(rank_pattern))
+af.list <- mutate(af.list, year=sapply(search.nodes, FUN = f.year) %>% unlist() )
+af.list <- mutate(af.list, update=sapply(search.nodes, FUN = f.update) %>% unlist() %>% as.Date('%m/%d%Y'))
+af.list <- mutate(af.list, id=str_extract(url, '\\d{6}') )
 
-for(i in 227:227){
-  print(i)
-  site <- paste(site1, i, site2, sep='')
-  items <- fetchbio(site)
-  afs <- rbind(afs, items)
-}
-write.csv(afs, 'afs3.csv', row.names = F)
-
-afs1 <- read.csv('afs1.csv', stringsAsFactors = F)
-afs2 <- read.csv('afs2.csv', stringsAsFactors = F)
-afs3 <- read.csv('afs3.csv', stringsAsFactors = F)
-
-afs <- rbind(afs1, afs2, afs3)
-afs <- afs[,-1]
-
-afs.need <- afs[afs$year>1990 | is.na(afs$year),]
-afs.need <- afs.need[!is.na(afs.need$rank),]
-afs.need <- afs.need[afs.need$rank=='GENERAL'|afs.need$rank=='LIEUTENANT GENERAL',]
-afs.need$id <- str_extract(afs.need$url, '\\d{6}')
-write.csv(afs.need, 'afsneed.csv', row.names = F)
+save(search.nodes, af.list, file='afs.RData')
