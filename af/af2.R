@@ -1,4 +1,4 @@
-
+#read every bio
 afneed <- read.csv('afsneed.csv', stringsAsFactors  = F)
 af <- afneed[1,]
 
@@ -16,5 +16,5 @@ for(i in 1:365){
   af <- rbind(af, bio)
 }
 
-write.csv(af, 'af.csv')
+write.csv(af, 'af.csv', row.names = F)
 

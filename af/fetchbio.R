@@ -20,7 +20,8 @@ fetchbio <- function(site){
   
   years <- str_extract(remark, '\\d{4}')
   
-  page <- data.frame(name=names, rank=ranks, year=years, url=urls)
+  page <- data.frame(name=names, rank=ranks, year=years, url=urls, reamrk=str_trim(remark),
+                     stringsAsFactors = F)
   return(page)
   
 }
