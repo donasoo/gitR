@@ -4,6 +4,7 @@ library(dplyr)
 
 load('searchnodes.RData')
 
+rank_pattern <-'GENERAL|BRIGADIER GENERAL|LIEUTENANT GENERAL|MAJOR GENERAL'
 f.url <- function(x) x %>% html_nodes("a.title") %>% html_attr('href') %>% str_trim()
 f.caption <- function(x) x %>% html_nodes("tr.dal_row a.title") %>% html_text()
 f.year <- function(x) x  %>% html_nodes("tr.dal_row span.red") %>% html_text() %>%  str_extract('\\d{4}')
