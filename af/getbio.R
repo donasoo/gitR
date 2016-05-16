@@ -1,9 +1,9 @@
 #read every bio  and save 
 library(rvest)
 library(dplyr)
-load('afs.RData')
+load('roster.RData')
 
-af.need <- filter(af.list, year>1990 & !is.na(rank))
+roster.need <- filter(af.list, year>1990 & !is.na(rank))
 bio.notes <- list()
 for(i in 1:nrow(af.need)){
   print(i)
@@ -11,3 +11,6 @@ for(i in 1:nrow(af.need)){
 }
 
 save(af.list, search.nodes, bio.notes, file = 'bio.RData')
+
+
+save(n)
