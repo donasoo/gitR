@@ -11,6 +11,3 @@ for(i in 1:nrow(af.need)){
 }
 
 save(af.list, search.nodes, bio.notes, file = 'bio.RData')
-
-
-save(n)
