@@ -6,36 +6,50 @@ library(cowplot)
 
 # 画单张图
 # 输入zoneid：地区行政代码
-# 输入plotvars: x,y,color,size 4个变量，默认为乡镇、行政区划面积，乡级类型，人口
-plotsingle <- function(zoneid='330802', plotvars=c('Z00', 'Z07', 'Z01', 'Z19')){
+# 输入plotvars: 6个变量，分别是分母、分子、色、大小、倍数、附加计量单位
+# 默认为无、行政区划面积，乡级类型、人口，1，无
+plotsingle <- function(zoneid='330802', plotvars=c('1', 'Z07', 'Z01', 'Z19', '1', '')){
   
-  xlabel <- varnames[varnames$varid==plotvars[1], 'name']
-  ylabel <- varnames[varnames$varid==plotvars[2], 'name']
-  clabel <- ''
-  slabel <- ''
   
   zonelen <- str_count(zoneid)
   codelen <- str_count(allplotdata$code[1])
   
-  pdata <- allplotdata[str_sub(allplotdata$code, 1, zonelen)==zoneid, c('code', plotvars)]
-
+  pdata <- filter(allplotdata, str_sub(code, 1, zonelen)==zoneid) %>%
+    mutate(town=str_sub(as.character(code), zonelen+1, codelen))
   if(nrow(pdata)<1) return()
   
-  if(length(plotvars) == 2){
-    pdata$cvar=1
-    pdata$svar=1
+  delabel <- NA
+  ylabel <- varnames[varnames$varid==plotvars[2], 'name']
+  clabel <- NA
+  slabel <- NA
+  vars <- colnames(pdata)
+  filename <- ''
+  
+  if(plotvars[1] %in% vars){
+    pdata$devar=pdata[[plotvars[1]]]
+    delabel <- varnames[varnames$varid==plotvars[1], 'name']
+    filename <- str_c('testplot/', zoneid, '/',plotvars[2],  ylabel,' 比 ', delabel, '.png')
+    ylabel <- paste(ylabel, '比', delabel, plotvars[6])
   }else{
+    pdata$devar=1
+    filename <- str_c('testplot/', zoneid, '/',plotvars[2],  ylabel,'.png')
+  }
+  
+  pdata$yvar= (pdata[[plotvars[2]]]/pdata$devar*as.numeric(plotvars[5]))
+  
+  if(plotvars[3] %in% vars){
+    pdata$cvar=pdata[[plotvars[3]]]
     clabel <- str_c('颜色表示：\n',varnames[varnames$varid==plotvars[3], 'name'])
-  }
-  
-  if(length(plotvars) == 3){
-    pdata$svar=1
   }else{
-    slabel <- str_c('大小表示：\n', varnames[varnames$varid==plotvars[4], 'name'])
+    pdata$cvar=1
   }
   
-  colnames(pdata) <- c('code', 'xvar', 'yvar', 'cvar', 'svar')
-  pdata <- mutate(pdata, town=str_sub(as.character(code), zonelen+1, codelen))
+  if(plotvars[4] %in% vars){
+    pdata$svar=pdata[[plotvars[4]]]
+    slabel <- str_c('大小表示：\n', varnames[varnames$varid==plotvars[4], 'name'])
+  }else{
+    pdata$svar=1
+  }
   
   path <- str_c("./testplot/", zoneid)
   if(!file.exists(path)){
@@ -45,26 +59,27 @@ plotsingle <- function(zoneid='330802', plotvars=c('Z00', 'Z07', 'Z01', 'Z19')){
   cb_palette <- c('#B22234', "#096386", "#facf5a", "#00b7a8", "#692db7", "#F0E442",
                   "#0072B2", "#D55E00", "#CC79A7")
   
-  pp <- ggplot(pdata, aes(x=xvar, y=yvar, color=cvar, size=svar))
+  pp <- ggplot(pdata, aes(x=town, y=yvar, color=as.factor(cvar), size=svar))
   pp <- pp+ geom_point(alpha=0.8)+geom_text(aes(label=town), size=4, vjust = "inward")
-  pp <- pp+labs(x=xlabel, 
-                y=ylabel, 
+  pp <- pp+labs(x='', 
+                y='指标数值', 
                 color=clabel,
                 size=slabel,
-                title= titleword)+
-    theme(axis.text.x = element_blank())+
+                title= titleword,
+                subtitle=ylabel)+
+    theme(axis.text.x = element_blank(), legend.position="left")+
     scale_color_manual(values=cb_palette)
   
-  if(is.numeric(pdata$xvar)) pp <-pp+ geom_abline(intercept=0, slope=1)
-  if(nchar(clabel)==0) pp <- pp+guides(color=F)
-  if(nchar(slabel)==0) pp <- pp+guides(size=F)
+  if(is.na(clabel)) pp <- pp+guides(color=F)
+  if(is.na(slabel)) pp <- pp+guides(size=F)
+  pp
   pb <- ggplot(pdata, aes(y=yvar))+geom_boxplot()+
-    geom_hline(yintercept = mean(pdata$yvar), color="orange",size=1)+
+    geom_hline(yintercept = mean(pdata$yvar, na.rm = T), color="orange",size=1)+
     labs(x='橙色为均值', y="")+
     theme(axis.text.y = element_blank(),axis.text.x = element_blank())
 
   p <- plot_grid(pp, pb, labels = c("", ""), align = "h", rel_widths = c(4, 1))
-  filename <- str_c('testplot/', zoneid, '/',fnprefix, plotvars[1], xlabel, '-',plotvars[2],  ylabel, '.png')
+  
   ggsave(filename, plot=p, width = 9, height = 6)
   
 }
@@ -75,19 +90,22 @@ plotsingle <- function(zoneid='330802', plotvars=c('Z00', 'Z07', 'Z01', 'Z19')){
 # zoneid：地区
 # 输入plotvars: x,y,color,size 4个变量，默认为乡镇、行政区划面积，乡级类型，人口
 # yvars，批量的y变量，默认为全部
-plotzone <- function(zoneid='330802', plotvars=c('Z00', 'Z00', 'Z01', 'Z19'), yvars=colnames(allplotdata)){
+plotzone <- function(zoneid='330802', plotvars=c('1', 'Z07', 'Z01', 'Z19', '1', ''), yvars=colnames(allplotdata)){
   
   for(yvar in yvars){
     plotvars[2] <- yvar
+    print(yvar)
+    print(plotvars)
     plotsingle(zoneid, plotvars)
   }
 }
+
 
 # 批量多地区多图
 # grade：地区级别，行政区划码的位数，6为县
 # 输入plotvars: x,y,color,size 4个变量，默认为乡镇、行政区划面积，乡级类型，人口
 # yvars，批量的y变量，默认为全部
-plotall <- function(grade=6, plotvars=c('Z00', 'Z00', 'Z01', 'Z19'), yvars=colnames(allplotdata)){
+plotall <- function(grade=6, plotvars=c('1', 'Z07', 'Z01', 'Z19', '1', ''), yvars=colnames(allplotdata)){
  
   for(zone in unique(str_sub(allplotdata$code, 1, grade))){
     plotzone(zone, plotvars, yvars)
