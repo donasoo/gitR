@@ -1,0 +1,146 @@
+---
+title: "亚太地区美军将领精编"
+subtitle: "DEMO"
+author: "小冠"
+institute: ""
+date: "2019/10/22"
+output:
+  xaringan::moon_reader:
+    css: [default, zh-CN.css, extra.css]
+    lib_dir: libs
+    nature:
+      ratio: '7:10'
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+class: center, middle
+background-size: cover
+background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/18/INDOPACOM_Emblem_2018.png)
+
+### 亚太地区美军将领精编
+
+---
+.small[美国印太司令部司令，海军上将菲利普·戴维森]
+.pull-left[
+![an image](https://upload.wikimedia.org/wikipedia/commons/b/b8/Davidson_PACOM.jpg)
+]
+
+.pull-right[
+.tiny[
+* Philip S. Davidson
+* 上任：2018年5月
+* 出生：1960年8月24日，俄亥俄州辛辛那提市
+* 海军学院1982屇，主修物理
+* 专业：水面舰，目前水面舰学长
+* 艇长：葛底斯堡号、泰勒号
+* 战队：第8航母战队
+]
+]
+
+.tiny[
+美国印太司令部司令，海军上将菲利普·戴维森
+]
+---
+.small[美国印太司令部副司令，空军中将迈克·米尼汗]
+.pull-left[
+![Michael_A._Minihan](https://upload.wikimedia.org/wikipedia/commons/a/ad/Lt._Gen._Michael_A._Minihan.jpg)
+]
+
+.pull-right[
+.tiny[
+* Michael A. Minihan
+* 上任：2019年9月
+* 出生：
+* 奥本大学1989屇，主修经济学
+* 专业：运输机飞行员
+* 主官：第89空运联队（总统专机联队）
+]
+]
+
+.tiny[
+迈克·米尼汗的父亲很可能是前任国家安全局局长，空军中将肯尼思·米尼汗
+]
+
+---
+.small[驻韩美军司令，陆军上将罗伯特·艾布拉姆斯]
+.pull-left[
+![Robert B. Abrams](https://upload.wikimedia.org/wikipedia/commons/f/f1/Gen._Robert_B._Abrams.jpg)
+]
+
+.pull-right[
+.tiny[
+* Robert_B._Abrams
+* 上任：2018年11月
+* 出生：1960年11月18日
+* 西点1982屇
+* 专业：装甲兵
+* 主官：第3步兵师，第1骑兵师1旅
+* 将门之家
+]
+]
+
+.tiny[
+罗伯特·艾布拉姆斯是将门世家，父亲克雷顿曾任美军陆军参谋长，美军主战坦克“艾布拉姆斯”就是以他的名字命名，长子，罗伯特的哥，也是陆军上将，曾任陆军训练与条令司令部司令
+]
+
+---
+background-image: url()
+background-size: 150px
+background-position: 90% 5%
+
+.small[
+美国太平洋陆军司令<br>
+上将保尔·拉卡莫拉（Paul J. LaCamera）
+]
+.tiny[
+- 上任：2019年9月
+- 出生：
+- 奥本大学1989屇，主修经济学
+- 专业：运输机飞行员
+- 主官：第89空运联队（总统专机联队）
+]
+
+
+---
+.small[太平洋空军司令，查尔斯·布朗]
+.pull-left[
+![Charles_Q._Brown](https://upload.wikimedia.org/wikipedia/commons/3/3d/Gen._Charles_Q._Brown%2C_Jr.jpg)
+]
+
+.pull-right[
+.tiny[
+* Charles Q. Brown Jr.
+* 上任：2018年7月
+* 出生：
+* 德州技术大学1984屇，土木工程
+* 专业：多机种飞行员
+* 主官：第31战机联队，第8战机联队
+]
+]
+
+.tiny[
+
+]
+
+
+---
+.small[太平洋舰队司令，查尔斯·布朗]
+.pull-left[
+![John Christopher Aquilino](https://upload.wikimedia.org/wikipedia/commons/3/3d/Gen._Charles_Q._Brown%2C_Jr.jpg)
+]
+
+.pull-right[
+.tiny[
+* John Christopher Aquilino
+* 上任：2018年7月
+* 出生：
+* 德州技术大学1984屇，土木工程
+* 专业：多机种飞行员
+* 主官：第31战机联队，第8战机联队
+]
+]
+
+.tiny[
+
+]
