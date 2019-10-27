@@ -14,21 +14,20 @@ output:
       highlightLines: true
       countIncrementalSlides: false
 ---
-class: center, middle
+class: center, middle, inverse
 background-size: cover
 background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/18/INDOPACOM_Emblem_2018.png)
 
 ### 亚太地区美军将领精编
 
 ---
-.small[美国印太司令部司令，海军上将菲利普·戴维森]
+.small[美国印太司令部司令<br>菲利普·戴维森(Philip S. Davidson)海军上将]
 .pull-left[
 ![an image](https://upload.wikimedia.org/wikipedia/commons/b/b8/Davidson_PACOM.jpg)
 ]
 
 .pull-right[
 .tiny[
-* Philip S. Davidson
 * 上任：2018年5月
 * 出生：1960年8月24日，俄亥俄州辛辛那提市
 * 海军学院1982屇，主修物理
@@ -39,17 +38,18 @@ background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/18/INDOPA
 ]
 
 .tiny[
-美国印太司令部司令，海军上将菲利普·戴维森
+戴维森是美国太平洋司令部更名印太司令部后的首任司令，这是个海军垄断的位子，但戴维森接班之路受到了前所未有的挑战。从军事部署上，空军在亚太地区有3支航空队，而海军也只有两支舰队，且大部分航母编队都在本土西海岸；此重要一体化作战司令部司令一般是上将调任，当时海军上将们并十分合适的人选，亚太经验不够或年龄太大，而太平洋空军的奥肖内西则蒸蒸日上；参议员麦凯恩是海军世家，且老爸曾任太平洋司令部司令，麦凯恩对海军地盘的维护有加，但当时麦凯恩身体不好，已经无力再争。
+
+经过5个月的提名斗争，戴维森最终还是胜出了，而且借主持调查太平洋舰队撞船事故，戴维森又增强了亚太经历，就在上任后4个月，麦凯恩去世。
 ]
 ---
-.small[美国印太司令部副司令，空军中将迈克·米尼汗]
+.small[美国印太司令部副司令<br>迈克·米尼汗(Michael A. Minihan)空军中将]
 .pull-left[
 ![Michael_A._Minihan](https://upload.wikimedia.org/wikipedia/commons/a/ad/Lt._Gen._Michael_A._Minihan.jpg)
 ]
 
 .pull-right[
 .tiny[
-* Michael A. Minihan
 * 上任：2019年9月
 * 出生：
 * 奥本大学1989屇，主修经济学
@@ -63,14 +63,13 @@ background-image: url(https://upload.wikimedia.org/wikipedia/commons/1/18/INDOPA
 ]
 
 ---
-.small[驻韩美军司令，陆军上将罗伯特·艾布拉姆斯]
+.small[驻韩美军司令<br>罗伯特·艾布拉姆斯(Robert_B._Abrams)陆军上将]
 .pull-left[
 ![Robert B. Abrams](https://upload.wikimedia.org/wikipedia/commons/f/f1/Gen._Robert_B._Abrams.jpg)
 ]
 
 .pull-right[
 .tiny[
-* Robert_B._Abrams
 * 上任：2018年11月
 * 出生：1960年11月18日
 * 西点1982屇
@@ -90,8 +89,8 @@ background-size: 150px
 background-position: 90% 5%
 
 .small[
-美国太平洋陆军司令<br>
-上将保尔·拉卡莫拉（Paul J. LaCamera）
+驻太平洋陆军司令<br>
+保尔·拉卡莫拉（Paul J. LaCamera）上将
 ]
 .tiny[
 - 上任：2019年9月
@@ -101,16 +100,35 @@ background-position: 90% 5%
 - 主官：第89空运联队（总统专机联队）
 ]
 
+---
+.small[第八集团军司令兼驻韩美军、美韩联军、联合国军参谋长<br>迈克尔·比尔斯(Michael A. Bills)陆军中将]
+.pull-left[
+![Michael A. Bills](https://upload.wikimedia.org/wikipedia/commons/2/29/Lt._Gen._Michael_A._Bills.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2018年1月
+* 出生：
+* 乔治·梅森大学1983屇，土木工程
+* 专业：装甲兵
+* 主官：第1骑兵师
+]
+]
+
+.tiny[
+
+]
+
 
 ---
-.small[太平洋空军司令，查尔斯·布朗]
+.small[太平洋空军司令<br>查尔斯·布朗(Charles Q. Brown Jr.)空军上将]
 .pull-left[
 ![Charles_Q._Brown](https://upload.wikimedia.org/wikipedia/commons/3/3d/Gen._Charles_Q._Brown%2C_Jr.jpg)
 ]
 
 .pull-right[
 .tiny[
-* Charles Q. Brown Jr.
 * 上任：2018年7月
 * 出生：
 * 德州技术大学1984屇，土木工程
@@ -125,22 +143,174 @@ background-position: 90% 5%
 
 
 ---
-.small[太平洋舰队司令，查尔斯·布朗]
+.small[第5航空队、驻日美军司令<br>凯文·施耐德(Kevin B. Schneider)空军中将]
 .pull-left[
-![John Christopher Aquilino](https://upload.wikimedia.org/wikipedia/commons/3/3d/Gen._Charles_Q._Brown%2C_Jr.jpg)
+![Kevin B. Schneider](https://upload.wikimedia.org/wikipedia/commons/0/08/Lt._Gen._Kevin_B._Schneider.jpg)
 ]
 
 .pull-right[
 .tiny[
-* John Christopher Aquilino
+* 上任：2019年2月
+* 出生：
+* 空军学院1988屇
+* 专业：战斗机飞行员
+* 主官：第80飞训联队、第380远征联队
+]
+]
+.tiny[
+
+]
+
+---
+.small[第7航空队司令兼驻韩美军、驻韩联合国军副司令<br>肯斯·维斯巴赫(Kenneth S. Wilsbach)空军中将]
+.pull-left[
+![Kenneth S. Wilsbach](https://upload.wikimedia.org/wikipedia/commons/d/dc/Lt._Gen._Kenneth_S._Wilsbach_%282%29.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2018年8月
+* 出生：
+* 佛罗里达大学1985屇，广播通信
+* 专业：战斗机飞行员
+* 主官：第53联队、第18联队
+]
+]
+.tiny[
+
+]
+
+---
+.small[第11航空队、阿拉斯加司令部、阿拉斯加联合部队司令<br>托马斯·博希埃(Thomas A. Bussiere)空军中将]
+.pull-left[
+![Thomas A. Bussiere](https://upload.wikimedia.org/wikipedia/commons/4/45/Lt._Gen._Thomas_A._Bussiere.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2018年8月
+* 出生：
+* 诺维奇大学1985屇，工商管理
+* 专业：轰炸机、战斗机飞行员
+* 主官：第509轰炸联队
+]
+]
+.tiny[
+]
+
+---
+.small[太平洋舰队司令<br>约翰·奥京里诺(John Aquilino)海军上将]
+.pull-left[
+![John Christopher Aquilino](https://upload.wikimedia.org/wikipedia/commons/7/7b/ADM_Aquilino_2018.jpg)
+]
+
+.pull-right[
+.tiny[
 * 上任：2018年7月
 * 出生：
-* 德州技术大学1984屇，土木工程
-* 专业：多机种飞行员
-* 主官：第31战机联队，第8战机联队
+* 海军学院1984屇，物理
+* 专业：海航飞行员
+* 主官：第2舰载机联队，第2航母战队
 ]
 ]
 
 .tiny[
 
+]
+
+---
+.small[第三舰队司令<br>斯科特·康恩(Scott D. Conn)海军中将]
+.pull-left[
+![Scott D. Conn](https://upload.wikimedia.org/wikipedia/commons/4/48/Vice_Adm._Scott_D._Conn.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2019年9月
+* 出生：
+* 宾州米拉斯维尔大学1985屇，机械工程
+* 专业：海航飞行员
+* 主官：第舰载机联队，第4航空战斗群
+]
+]
+
+.tiny[]
+
+---
+.small[第七舰队司令<br>威廉·梅兹(William R. Merz)海军中将]
+.pull-left[
+![William R. Merz](https://upload.wikimedia.org/wikipedia/commons/9/98/Vice_Adm._William_R._Merz_%283%29.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2019年9月
+* 出生：
+* 海军学院1986屇，海洋工程
+* 专业：潜艇
+* 主官：第舰载机联队，第4航空战斗群
+]
+]
+
+.tiny[]
+
+---
+.small[驻太平洋陆战队司令<br>刘易斯·克雷帕罗塔(Lewis A. Craparotta)陆战队中将]
+.pull-left[
+![Lewis A. Craparotta](https://upload.wikimedia.org/wikipedia/commons/f/ff/Lieutenant_General_L._A._Craparotta.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2018年8月
+* 出生：1960年3月7日，康涅狄格南温沙
+* 佛蒙特大学1983屇，政治学
+* 专业：步兵,空中侦查员
+* 主官：陆战1团
+]
+]
+
+.tiny[
+
+]
+
+---
+.small[第一远征军司令<br>约瑟夫·奥斯特曼(Joseph L. Osterman)陆战队中将]
+.pull-left[
+![Joseph L. Osterman](https://upload.wikimedia.org/wikipedia/commons/1/1d/Lt._Gen._Joseph_L._Osterman%282%29.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2018年8月
+* 出生：
+* 科罗拉多大学博尔德分校1979屇，生物学
+* 专业：步兵
+* 主官：陆战25团
+]
+]
+
+.tiny[
+准将时曾在阿富汗，为时任司令邓福德上将担任副参谋长，邓福德后成为陆战队司令和参联会主席。
+]
+
+
+---
+.small[第三远征军、驻日陆战队司令<br>中将赫尔曼·科拉迪三世(Herman S. Clardy III)陆战队中将]
+.pull-left[
+![Herman S. Clardy III](https://upload.wikimedia.org/wikipedia/commons/6/6f/Lt._Gen._H._Stacy_Clardy_III.jpg)
+]
+
+.pull-right[
+.tiny[
+* 上任：2019年4月
+* 出生：1960年
+* 南卡罗莱纳大学1983屇，工商管理
+* 专业：步兵
+* 主官：陆战2团，陆战3师
+]
+]
+
+.tiny[
+任现职前，曾为国防部分管人事战备的副部长担任军事助理，也是从陆战队空地战斗中心
 ]
